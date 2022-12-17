@@ -1,10 +1,14 @@
 package Dao;
 
+import Model.Categorie;
+import Model.Materiaux;
+import utility.Utility;
+
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import model.Categorie;
 
 public class CategorieDAO extends SuperDAO {
 
@@ -13,19 +17,50 @@ public class CategorieDAO extends SuperDAO {
 		
 	}
 	
-	public List<Categorie> getCategories()
-	{
-		List<Categorie> results = new ArrayList<Categorie>();
-		results.add(new Categorie(-1, "Exemple"));
-		
-		return results;
-	}
-	
 	public Categorie getElementById(int value)
 	{
-		
-		return new Categorie(-1, "Exemple DAOCateg ElementById");
-		
+		int idCat = 0;
+		String nomCat = null;
+		Categorie categorie = null;
+		List<Materiaux> listMat = new ArrayList<>();
+		ResultSet rs =  getElementById("idCat",value);
+		try{
+			//Recuperation du nom et de l'id de la catégorie
+			while(rs.next()) {
+				idCat = rs.getInt(1);
+				nomCat = rs.getString(2);
+			}
+
+			System.out.println(idCat + ": id de la categorie " + "\n");
+
+		}catch(SQLException e)
+		{
+			System.out.println("Erreur: Lecture impossible" + "\n");
+			e.printStackTrace();
+		}
+
+		try
+		{
+			//Seulement un ResultSet par Statement donc on crée un nouveau statement pour recuperer la nouvelle liste
+			Statement stmt = Utility.initConnexion().createStatement();
+			ResultSet query = stmt.executeQuery("SELECT * FROM materiaux WHERE idcat = " + idCat + ";");
+			while (query.next())
+			{
+				int number = query.getInt(1);
+				MateriauxDAO daoMat = new MateriauxDAO();
+				Materiaux mat = daoMat.getElementById(number);
+				System.out.println(mat + "\n");
+				listMat.add(mat);
+			}
+
+			categorie = new Categorie(idCat,nomCat,listMat);
+		}catch (SQLException e1)
+		{
+			System.out.println("Erreur: Lecture impossible" + "\n");
+			e1.printStackTrace();
+		}
+
+		return categorie;
 	}
 
 	

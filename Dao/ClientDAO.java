@@ -1,6 +1,16 @@
 package Dao;
 
-import model.Client;
+import Model.Categorie;
+import Model.Client;
+import Model.Commande;
+import Model.Magasin;
+import utility.Utility;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientDAO extends SuperDAO {
 
@@ -11,12 +21,51 @@ public class ClientDAO extends SuperDAO {
 	
 	public Client getElementById(int value)
 	{
-		if(value < 0)
+		Client client = null;
+		List<Categorie> listCat = new ArrayList<>();
+		List<Integer> listSeuilParMagasin = new ArrayList<>();
+		int id = 0;
+		int idMag = 0;
+		String nom = null;
+		String prenom = null;
+		ResultSet rs = getElementById("idCli",value);
+		try
 		{
-			return null;
+
+			while(rs.next()) {
+				//Recuperation de l'Id, Nom  et du prenom
+				id = rs.getInt(1);
+				nom = rs.getString(2);
+				prenom = rs.getString(3);
+			}
+
+
+
+		}catch (SQLException e)
+		{
+			System.out.println("Erreur lors de l'implémentation 1");
 		}
-		
-		return new Client(value, "nom", "prenom", null);
+		try {
+			Statement stmt = Utility.initConnexion().createStatement();
+			String sql  ="SELECT * FROM seuil WHERE idcli =" + id  + ";" ;
+			ResultSet rSet = stmt.executeQuery(sql);
+			while(rSet.next())
+			{
+				//Ajout du magasin dans l'arbre
+				CategorieDAO daoCat = new CategorieDAO();
+				listCat.add(daoCat.getElementById(rSet.getInt(1)));
+
+				//Ajout du seuil
+				listSeuilParMagasin.add(rSet.getInt(3));
+			}
+			client=new Client(id,nom,prenom,listSeuilParMagasin,listCat);
+		}catch (SQLException e1)
+		{
+			System.out.println("Erreur lors de l'implémentation 2");
+			e1.printStackTrace();
+		}
+
+		return client;
 	}
 
 }

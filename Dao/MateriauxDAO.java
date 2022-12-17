@@ -1,9 +1,11 @@
 package Dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Materiaux;
+import Model.Materiaux;
 
 public class MateriauxDAO extends SuperDAO{
 	
@@ -12,22 +14,43 @@ public class MateriauxDAO extends SuperDAO{
 		super("materiaux");
 	}
 	
-	public List<Materiaux> getMateriaux()
-	{
-		List<Materiaux> results = new ArrayList<Materiaux>();
-		results.add(new Materiaux(-1, "Exemple Materiaux", null));
-		
-		return results;
-	}
-	
+	/**
+	 * GetElementById
+	 * @param value
+	 * @return Une liste materiaux correspondant 
+	 */
 	public Materiaux getElementById(int value)
 	{
-		if(value < 0)
-		{
-			return null;
-		}
+		Materiaux materiaux = null;
+		ResultSet queryResultat = getElementById("idMat",value);
 		
-		return new Materiaux(-1, "MateriauxById", null);
+		try {
+			while(queryResultat.next())
+			{
+				int id = queryResultat.getInt(1);
+				String nom = queryResultat.getString(2);
+				int idSub = queryResultat.getInt(3);
+				if(idSub != 0)
+				{
+					ResultSet rs = getElementById("idMat", idSub);
+					int idMATSub = rs.getInt(1);
+					String nomSub = rs.getString(2);
+					
+					Materiaux sub = new Materiaux(idMATSub,nomSub,null);
+					materiaux = new Materiaux(id, nom, sub);
+					
+				}else
+				{
+					materiaux = new Materiaux(id,nom,null);
+				}
+					
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur: Lecture impossible" + "\n");
+			e.printStackTrace();
+		}
+		return materiaux; 
+			
 	}
 
 }

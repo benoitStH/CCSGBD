@@ -20,7 +20,7 @@ public class SuperDAO {
 		this.tableName = tableName;
 	}
 	
-	protected ResultSet getElements()
+	public ResultSet getElements()
 	{
 		String query = "SELECT * FROM " + tableName + ";";
 		ResultSet results;  
@@ -40,9 +40,9 @@ public class SuperDAO {
 		
 	}
 	
-	protected ResultSet getElementById(String idname, int value)
+	public ResultSet getElementById(String idname, int value)
 	{
-		String query = "SELECT * FROM " + tableName + "WHERE "+ idname + "=" + value +";" ;
+		String query = "SELECT * FROM " + tableName + " WHERE "+ idname + "= " + value +";" ;
 		ResultSet results;  
 		try {
 			
@@ -58,5 +58,20 @@ public class SuperDAO {
 		
 		return results;
 	}
+	
+	protected static void addData(String table, String data) 
+	{
+		String sql = "INSERT INTO "+ table + " VALUES" + data;
+		try {
+			s.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.out.println("Unable to insert data" + "\n");
+			e.printStackTrace();
+		}
+	}
 
+
+	public static void setS(Statement s) {
+		SuperDAO.s = s;
+	}
 }
