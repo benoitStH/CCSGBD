@@ -22,10 +22,12 @@ public class ControllerMagasin {
 		if(result == null)
 		{
 			System.out.println("Erreur : L'id "+value+" ne correspond à aucun magasin");
-			return new Magasin(-1, "####", null);
+			return new Magasin(-1, "####", null, null);
 		}
 		
 		return result;
 	}
+	
+	
 
 }
