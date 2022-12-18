@@ -12,12 +12,12 @@ import Model.Materiaux;
 import utility.Utility;
 
 public class CommandeDAO extends SuperDAO{
-	
+
 	public CommandeDAO()
 	{
 		super("commande");
 	}
-	
+
 	public Commande getElementById(int value)
 	{
 
@@ -44,24 +44,24 @@ public class CommandeDAO extends SuperDAO{
 			} catch (SQLException e) {
 				System.out.println("Erreur while generating object" + "\n");
 			}try {
-				Statement stmt = Utility.initConnexion().createStatement();
-				String sql = "SELECT * FROM panier WHERE idCom =" + id + ";";
-				ResultSet rSet = stmt.executeQuery(sql);
-				while(rSet.next())
-				{
-					//Recuperation de la quantité et affectation dans la liste
-					int qt = rSet.getInt(3);
-					listQ.add(qt);
-					//Recuperation du materiaux de la commande et affectation dans sa liste
-					MateriauxDAO daoMat = new MateriauxDAO();
-					listMat.add(daoMat.getElementById(rSet.getInt(1)));
-				}
-
-
-					commande = new Commande(id,listQ,listMat);
-			} catch (SQLException e) {
-				System.out.println("Erreur while generating object 2" + "\n");
+			Statement stmt = Utility.initConnexion().createStatement();
+			String sql = "SELECT * FROM panier WHERE idCom =" + id + ";";
+			ResultSet rSet = stmt.executeQuery(sql);
+			while(rSet.next())
+			{
+				//Recuperation de la quantité et affectation dans la liste
+				int qt = rSet.getInt(3);
+				listQ.add(qt);
+				//Recuperation du materiaux de la commande et affectation dans sa liste
+				MateriauxDAO daoMat = new MateriauxDAO();
+				listMat.add(daoMat.getElementById(rSet.getInt(1)));
 			}
+
+
+			commande = new Commande(id,listQ,listMat);
+		} catch (SQLException e) {
+			System.out.println("Erreur while generating object 2" + "\n");
+		}
 
 		}
 
@@ -89,10 +89,28 @@ public class CommandeDAO extends SuperDAO{
 
 		return listCom;
 	}
-	
+
 	public void AddCommande(Commande commande, Client client)
 	{
-		/// A DEFINIR ///	
+		try {
+			Statement sCommande = Utility.initConnexion().createStatement();
+			//Ajout Commande
+			String sql = "INSERT INTO commande (idCom, idCli) VALUES ( "+ commande.getId() +"," +  client.getId() + ");";
+			System.out.println(sql);
+			sCommande.executeUpdate(sql);
+			//Ajout Panier
+			for(int i = 0; i< commande.getListMat().size();i++)
+			{
+
+				sql = "INSERT INTO panier (idMat, idCom, quantite) VALUES ("+ commande.getListMat().get(i).getId() + ","+ commande.getId() +","+  commande.getQuantite().get(i) +");";
+				System.out.println(sql);
+				sCommande.executeUpdate(sql);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Erreur l'hors de l'ajout ");
+			e.printStackTrace();
+		}
 	}
 
 }

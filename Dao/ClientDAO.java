@@ -16,9 +16,9 @@ public class ClientDAO extends SuperDAO {
 
 	public ClientDAO() {
 		super("client");
-		
+
 	}
-	
+
 	public Client getElementById(int value)
 	{
 		Client client = null;
@@ -86,10 +86,28 @@ public class ClientDAO extends SuperDAO {
 
 		return listCli;
 	}
-	
+
 	public void AddClientToMagasin(Client client, Magasin magasin)
 	{
-		/// A DEFINIR ///	
+		try {
+			Statement sClient = Utility.initConnexion().createStatement();
+			//Ajout Client
+			String sql = "INSERT INTO client (idCli, nom, prenom, idMag) VALUES ( "+ client.getId() +",'" +  client.getNom() + "','" + client.getPrenom() + "'," + magasin.getId() + ");";
+			System.out.println(sql);
+			sClient.executeUpdate(sql);
+			//Ajout Seuil
+			for(int i = 0; i< client.getSeuilMax().size();i++)
+			{
+
+				sql = "INSERT INTO seuil (idCat, idCli, quantiteMax) VALUES ("+ client.getListCat().get(i).getId() +"," + client.getId()+ ","+ client.getSeuilMax().get(i) +");";
+				System.out.println(sql);
+				sClient.executeUpdate(sql);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Erreur l'hors de l'ajout ");
+			e.printStackTrace();
+		}
 	}
 
 }
