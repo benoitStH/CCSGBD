@@ -49,7 +49,7 @@ public class ViewCommande
                   {
                         // choix d'un client parmi ceux du magasin
                         clientView.ShowClientsOf(magasin);
-                        client = clientView.SelectClients();
+                        client = clientView.SelectClient();
                     
                         AddCommande(magasin, client);
                   }
@@ -66,7 +66,7 @@ public class ViewCommande
             List<Materiaux> materiaux;
             List<Integer> quantite;
             int choix;
-            int total = 0;
+            int total;
             int max;
         
             if(client == null)
@@ -79,9 +79,9 @@ public class ViewCommande
             cat = categorieView.SelectCategorie();
             total = 0;
             
-            for(int i = 0; i < client.getCategories().size(); i++)
+            for(int i = 0; i < client.getListCat().size(); i++)
             {
-                  c = client.getCategories.get(i);
+                  c = client.getListCat().get(i);
                   if(cat.getId() == c.getId())
                   {
                         max = client.getSeuilMax().get(i);
@@ -91,7 +91,7 @@ public class ViewCommande
             
             do
             {
-                  materiauxView.ShowMateriauxFrom(cat.getMateriaux());
+                  materiauxView.ShowMateriauxFrom(cat.getListMat());
                   mat = materiauxView.SelectMateriaux();
         
                   if(mat.getId() == -1)
