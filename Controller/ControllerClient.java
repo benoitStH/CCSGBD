@@ -1,6 +1,6 @@
 package Controller;
 
-import model.Client;
+import Model.Client;
 
 public class ControllerClient {
 
