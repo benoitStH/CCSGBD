@@ -1,24 +1,31 @@
 package View;
 
+import java.util.Scanner;
 import Model.Categorie;
 import Controller.ControllerCategorie;
 
 public class ViewCategorie
 {
-      private Scanner scan = new Scanner(System.in);
-      private ControllerCategorie Ctrl = new ControllerCategorie();
+      private Scanner scan;
+      private ControllerCategorie Ctrl;
+      
+      public ViewCategorie()
+      {
+            scan = new Scanner(System.in);
+            Ctrl = new ControllerCategorie();
+      }
   
       public Categorie SelectCategorie()
       {
           int id;
           Catagorie cat;
         
-          System.out.print("Veuillez saisir l'id de la categorie recherchée : "); 
+          System.out.prints("Veuillez saisir l'id de la categorie recherchée : "); 
           id = scan.nextInt();
         
           cat = Ctrl.getCategoryById(id);
         
-          return client;  
+          return cat;  
       }
   
       public void ShowCategoriesFrom(List<Categorie> categories)
@@ -32,7 +39,7 @@ public class ViewCategorie
               return;
           }
         
-          taille = categorie.size();
+          taille = categories.size();
           if(taille == 0)
           {
               System.out.println("Aucune categorie");
