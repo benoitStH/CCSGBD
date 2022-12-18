@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Client;
+import Model.Magasin;
 
 public class ControllerClient {
 
@@ -24,5 +25,9 @@ public class ControllerClient {
           return result;
     }
   
+    public void AddClientToMagasin(Client client, Magasin magasin)
+    {
+        dao.AddClientToMagasin(client, magasin);
+    }
   
 }
