@@ -7,7 +7,12 @@ import Model.Composant;
 
 public class ControllerComposant {
 
-	private ComposantDAO dao = new ComposantDAO();
+	private ComposantDAO dao;
+	
+	public ControllerComposant()
+	{
+		dao = new ComposantDAO();
+	}
 	
 	public List<Composant> GetAllComposants()
 	{
