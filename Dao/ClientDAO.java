@@ -93,14 +93,12 @@ public class ClientDAO extends SuperDAO {
 			Statement sClient = Utility.initConnexion().createStatement();
 			//Ajout Client
 			String sql = "INSERT INTO client (idCli, nom, prenom, idMag) VALUES ( "+ client.getId() +",'" +  client.getNom() + "','" + client.getPrenom() + "'," + magasin.getId() + ");";
-			System.out.println(sql);
 			sClient.executeUpdate(sql);
 			//Ajout Seuil
 			for(int i = 0; i< client.getSeuilMax().size();i++)
 			{
 
 				sql = "INSERT INTO seuil (idCat, idCli, quantiteMax) VALUES ("+ client.getListCat().get(i).getId() +"," + client.getId()+ ","+ client.getSeuilMax().get(i) +");";
-				System.out.println(sql);
 				sClient.executeUpdate(sql);
 			}
 
@@ -110,4 +108,26 @@ public class ClientDAO extends SuperDAO {
 		}
 	}
 
+	public List<Client> getClientsOf(Magasin magasin) {
+
+		List<Client> listCli = new ArrayList<>();
+		try {
+			Statement stmt = Utility.initConnexion().createStatement();
+			String sql = "SELECT idCli FROM client WHERE idMag = " + magasin.getId()+";";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int idcli = rs.getInt(1);
+				listCli.add((getElementById(idcli)));
+			}
+
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("Erreur lors de la récupération des clients");
+		}
+
+
+		return listCli;
+	}
 }
