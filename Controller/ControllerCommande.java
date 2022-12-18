@@ -1,12 +1,20 @@
 package Controller;
 
+import java.util.List;
+
+import Dao.CommandeDAO;
 import Model.Commande;
 import Model.Magasin;
 import Model.Client;
 
 public class ControllerCommande {
 
-    private CommandeDAO dao = new CommandeDAO();
+    private CommandeDAO dao;
+    
+    public ControllerCommande()
+    {
+        dao = new CommandeDAO();
+    }
   
     public List<Commande> getAllCommandes()
     {
