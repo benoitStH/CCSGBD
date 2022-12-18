@@ -1,19 +1,29 @@
 package View;
 
+import java.util.Scanner;
+import java.util.List;
+
 import Model.Materiaux;
 import Controller.ControllerMateriaux;
 
 public class ViewMateriaux
 {
-      private Scanner scan = new Scanner(System.in);
-      private ControllerMateriaux Ctrl = new ControllerMateriaux();
+      private Scanner scan;
+      private ControllerMateriaux Ctrl;
+      
+      public ViewMateriaux()
+      {
+            scan = new Scanner(System.in);
+            Ctrl = new ControllerMateriaux();
+      }
+            
   
       public Materiaux SelectMateriaux()
       {
           int id;
           Materiaux mat;
         
-          System.out.print("Veuillez saisir l'id du matériel recherché : "); 
+          System.out.prints("Veuillez saisir l'id du matériel recherché : "); 
           id = scan.nextInt();
         
           mat = Ctrl.getMateriauxById(id);
