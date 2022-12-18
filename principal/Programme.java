@@ -1,7 +1,6 @@
 package principal;
 
-import java.sql.Connection;
-import utility.Utility;
+import java.util.Scanner;
 
 import View.ViewMagasin;
 import View.ViewMateriaux;
@@ -24,8 +23,6 @@ public class Programme {
 		Magasin magasin;
 		Composant composant;
 		
-		Connection c = Utility.initConnexion();
-		
 		// PROGRAMME PRINCIPAL //
 		while(choix != 0)
 		{
@@ -34,7 +31,7 @@ public class Programme {
 			System.out.println("3 - Rechercher des matériaux à partir d'un composant");
 			System.out.println("0 - Quitter l'application");
 			
-			System.out.print("Veuillez saisir une option : ");
+			System.out.prints("Veuillez saisir une option : ");
 			
 			choix = scan.nextInt();
 			 
@@ -74,7 +71,6 @@ public class Programme {
 		
 		
 		// Arrêt du programme
-		Utility.closeConnection(c);
 		System.out.println("Arrêt de l'application");
 		
 		
