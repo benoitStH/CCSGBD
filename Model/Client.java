@@ -6,20 +6,19 @@ import java.util.ArrayList;
 public class Client extends Entity {
 
 
+	private String prenom;
+
+	private List<Integer> seuilMax;
+
+	private List<Categorie> listCat;
+	
+
 	public Client(int id, String nom, String prenom, List<Integer> seuilMax, List<Categorie> listCat) {
 		super(id, nom);
 		this.prenom = prenom;
 		this.seuilMax = seuilMax;
 		this.listCat = listCat;
 	}
-
-
-
-	private String prenom;
-
-	private List<Integer> seuilMax;
-
-	private List<Categorie> listCat;
 
 	
 	public String getPrenom() {
