@@ -1,16 +1,7 @@
 package principal;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
-
-import Controller.ControllerCategorie;
-import Controller.ControllerClient;
-import Controller.ControllerCommande;
-import Controller.ControllerComposant;
-import Controller.ControllerMagasin;
-import Controller.ControllerMateriaux;
+import utility.Utility;
 
 import View.ViewMagasin;
 import View.ViewMateriaux;
@@ -33,34 +24,7 @@ public class Programme {
 		Magasin magasin;
 		Composant composant;
 		
-		Connection c = null;
-		Properties user = new Properties();
-		user.setProperty("user", "root");
-		user.setProperty("password", "domadoma");
-		
-		
-		// Chargement du Driver
-		try
-		{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		}
-		catch(ClassNotFoundException e)
-		{
-			System.out.println("Erreur de Chargement du driver");
-			System.exit(1);
-		}
-		
-		// Ouverture de connexion
-		try
-		{
-			c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mybdd",
-					user.getProperty("user"), user.getProperty("password"));
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-			System.out.println("Erreur d'ouverture de connexion");
-			System.exit(1);
-		}
+		Connection c = Utility.initConnexion();
 		
 		// PROGRAMME PRINCIPAL //
 		while(choix != 0)
@@ -109,19 +73,8 @@ public class Programme {
 		}
 		
 		
-		
-		// Fermeture de connexion
-		try
-		{
-			c.close();
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-			System.out.println("Erreur de fermeture de connexion");
-			System.exit(1);
-		}
-		
-		
+		// Arrêt du programme
+		Utility.closeConnection(c);
 		System.out.println("Arrêt de l'application");
 		
 		
