@@ -1,5 +1,7 @@
 package Controller;
 
+import model.Client;
+
 public class ControllerClient {
 
     private ClientDAO dao = new ClientDAO();
