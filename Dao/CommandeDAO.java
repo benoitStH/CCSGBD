@@ -89,5 +89,10 @@ public class CommandeDAO extends SuperDAO{
 
 		return listCom;
 	}
+	
+	public void AddCommande(Commande commande, Client client)
+	{
+		/// A DEFINIR ///	
+	}
 
 }
