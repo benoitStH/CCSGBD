@@ -16,7 +16,7 @@ public class ViewCategorie
           System.out.print("Veuillez saisir l'id de la categorie recherchée : "); 
           id = scan.nextInt();
         
-          cat = Ctrl.getCategorieById(id);
+          cat = Ctrl.getCategoryById(id);
         
           return client;  
       }
