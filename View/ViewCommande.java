@@ -62,6 +62,7 @@ public class ViewCommande
             ViewMateriaux materiauxView = new ViewMateriaux();
             Categorie cat, c;
             Materiaux mat;
+            Commande commande;
             List<Materiaux> materiaux;
             List<Integer> quantite;
             int choix;
@@ -113,6 +114,7 @@ public class ViewCommande
                   
             }while(mat.getId() != -1);
             
-            Ctrl.AddCommande(new Commande(IdMaxFrom(Ctrl.getAllCommandes())+1, quantite, materiaux));
+            commande = new Commande(IdMaxFrom(Ctrl.getAllCommandes())+1, quantite, materiaux);
+            Ctrl.AddCommande(commande, magasin, client);
       }
 }
