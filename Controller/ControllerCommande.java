@@ -18,7 +18,10 @@ public class ControllerCommande {
           if(result == null)
           {
                 System.out.println("Erreur : Aucune commande ne possède l'id "+value); 
+                return new Commande(-1, null, null);
           }
+        
+          return result;
     }
   
   
