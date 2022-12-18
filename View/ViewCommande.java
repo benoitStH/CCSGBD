@@ -1,5 +1,9 @@
 package View;
 
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+
 import Model.Commande;
 import Controller.ControllerCommande;
 import View.ViewClient;
@@ -7,8 +11,14 @@ import View.ViewMateriaux;
 
 public class ViewCommande
 {
-      private Scanner scan = new Scanner(System.in);
-      private ControllerCommande Ctrl = new ControllerCommande();
+      private Scanner scan;
+      private ControllerCommande Ctrl;
+      
+      public ViewCommande()
+      {
+            scan = new Scanner(System.in);
+            Ctrl = new ControllerCommande();
+      }
   
       public void AddCommande(Magasin magasin)
       {
@@ -35,7 +45,7 @@ public class ViewCommande
                   System.out.println("2 - Créer une commande pour un client existant");
                   System.out.println("0 - Retourner à la page précédente");
               
-                  System.out.print("Veuillez choisir une option : ");
+                  System.out.prints("Veuillez choisir une option : ");
                   choix = scan.nextInt();
               
                   if(choix == 1)
@@ -63,8 +73,8 @@ public class ViewCommande
             Categorie cat, c;
             Materiaux mat;
             Commande commande;
-            List<Materiaux> materiaux;
-            List<Integer> quantite;
+            List<Materiaux> materiaux = new ArrayList<Materiaux>();
+            List<Integer> quantite = new ArrayList<Integer>();
             int choix;
             int total;
             int max;
@@ -99,7 +109,7 @@ public class ViewCommande
                         break;
                   }
                   
-                  System.out.print("Veuillez indiquer la quantité à commander : ");
+                  System.out.prints("Veuillez indiquer la quantité à commander : ");
                   choix = scan.nextInt();
                   if(total+choix > max)
                   {
