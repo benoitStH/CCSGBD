@@ -1,19 +1,29 @@
 package View;
 
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
 import Model.Client;
 import Controller.ControllerClient;
 
 public class ViewClient
 {
-      private Scanner scan = new Scanner(System.in);
-      private ControllerClient Ctrl = new ControllerClient();
+      private Scanner scan;
+      private ControllerClient Ctrl;
+      
+      public ViewClient()
+      {
+            scan = new Scanner(System.in);
+            Ctrl = new ControllerClient();
+      }
   
       public Client SelectClient()
       {
           int id;
           Client client;
         
-          System.out.print("Veuillez saisir l'id du client recherché : "); 
+          System.out.prints("Veuillez saisir l'id du client recherché : "); 
           id = scan.nextInt();
         
           client = Ctrl.getClientById(id);
@@ -68,17 +78,17 @@ public class ViewClient
         List<Categorie> categories = CtrlCat.getAllCategories();
         List<Integer> seuilMax = new ArrayList<Integer>();
         
-        System.out.print("Nom du client : ");
-        nom = scan.nextString();
+        System.out.prints("Nom du client : ");
+        nom = scan.nextLine();
           
-        System.out.print("Prénom du client : ");
-        prenom = scan.nextString();
+        System.out.prints("Prénom du client : ");
+        prenom = scan.nextLine();
         
         client = new Client(IdMax()+1, nom, prenom, null, null);
         
         if(FindClientInMagasin(client, magasin))
         {
-             System.out.print("Il existe déjà un client avec le même nom et prénom")
+             System.out.println("Il existe déjà un client avec le même nom et prénom");
              return null;     
         }
         
