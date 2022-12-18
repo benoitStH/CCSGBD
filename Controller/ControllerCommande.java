@@ -26,9 +26,9 @@ public class ControllerCommande {
           return result;
     }
     
-    public void AddCommande(Commande commande, Magasin magasin, Client client)
+    public void AddCommande(Commande commande, Client client)
     {
-        dao.AddCommande(commande, magasin, client);
+        dao.AddCommande(commande, client);
     }
   
   
