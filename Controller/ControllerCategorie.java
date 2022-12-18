@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import Dao.CategorieDAO;
-import model.Categorie;
+import Model.Categorie;
 
 public class ControllerCategorie {
 
