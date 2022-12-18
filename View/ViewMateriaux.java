@@ -24,9 +24,15 @@ public class ViewMateriaux
   
     public void ShowMateriauxFrom(List<Materiaux> materiaux)
     {
-          int taille = materiaux.size();
+          int taille;
           Materiaux mat;
       
+          if(materiaux == null)
+          {
+                System.out.println("Aucun matériaux");
+                return;
+          }
+          
           if(taille == 0)
           {
               System.out.println("Aucun Materiaux");
