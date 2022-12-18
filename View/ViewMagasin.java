@@ -1,21 +1,30 @@
 package View;
 
+import java.util.Scanner;
+import java.util.List;
+
 import Model.Magasin;
 import Controller.ControllerMagasin;
 import View.ViewMateriaux;
 
 public class ViewMagasin
 {
-      private Scanner scan = new Scanner(System.in);
-      private ControllerMagasin Ctrl = new ControllerMagasin();
+      	private Scanner scan;
+      	private ControllerMagasin Ctrl;
   
+	public ViewMagasin()
+	{
+		scan = new Scanner(System.in);
+		Ctrl = new ControllerMagasin();
+	}
+	
       public Magasin SelectMagasin()
       {
             int id;
             Magasin mag;
         
-            System.out.print("Veuillez saisir l'id du magasin recherché : ");
-            id = scan.nextId();
+            System.out.prints("Veuillez saisir l'id du magasin recherché : ");
+            id = scan.nextInt();
         
             mag = Ctrl.getMagasinById(id);
         
@@ -58,19 +67,19 @@ public class ViewMagasin
           int choix = -1;
           ViewMateriaux materiauxView = new ViewMateriaux();
         
-          while(choix != 0)
-				  {
-					    System.out.println("1 - Afficher la quantité disponible en stock d'un matériel");
-					    System.out.println("0 - Retourner à la page précedente");
+        while(choix != 0)
+	{
+	        System.out.println("1 - Afficher la quantité disponible en stock d'un matériel");
+	        System.out.println("0 - Retourner à la page précedente");
 					
-					    System.out.print("Veuillez choisir une option : ");
-					    choix = scan.nextInt();
+	    	System.out.print("Veuillez choisir une option : ");
+		choix = scan.nextInt();
             
               if(choix == 1)
               {
                     ShowStock(magasin, materiauxView.SelectMateriaux());
               }
-				  } 
+	} 
       }
   
       private void ShowStock(Magasin magasin, Materiaux mat)
