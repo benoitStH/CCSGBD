@@ -8,7 +8,12 @@ import Model.Categorie;
 
 public class ControllerCategorie {
 
-	private CategorieDAO dao = new CategorieDAO();
+	private CategorieDAO dao;
+	
+	public ControllerCategorie()
+	{
+		dao = new CategorieDAO();
+	}
 	
 	public List<Categorie> GetAllCategories()
 	{
