@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.Commande;
+import Model.Magasin;
+import Model.Client;
 
 public class ControllerCommande {
 
@@ -22,6 +24,11 @@ public class ControllerCommande {
           }
         
           return result;
+    }
+    
+    public void AddCommande(Commande commande, Magasin magasin, Client client)
+    {
+        dao.AddCommande(commande, magasin, client);
     }
   
   
