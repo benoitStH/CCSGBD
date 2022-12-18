@@ -114,7 +114,24 @@ public class ViewCommande
                   
             }while(mat.getId() != -1);
             
-            commande = new Commande(IdMaxFrom(Ctrl.getAllCommandes())+1, quantite, materiaux);
+            commande = new Commande(IdMax()+1, quantite, materiaux);
             Ctrl.AddCommande(commande, magasin, client);
+      }
+      
+      private int IdMax()
+      {
+            List<Commande> commandes = Ctrl.getAllCommandes();
+            int taille = commandes.size();
+            int id = 0;
+            
+            for(int i = 0; i < taille; i++)
+            {
+                  if(id < commandes.get(i).getId())
+                  {
+                        id = commandes.get(i).getId();     
+                  }
+            }
+            
+            return id;
       }
 }
