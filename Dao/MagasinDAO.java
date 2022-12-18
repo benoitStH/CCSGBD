@@ -71,4 +71,24 @@ public class MagasinDAO extends SuperDAO{
 		return mag;
 	}
 
+	public List<Magasin> getMagasins()
+	{
+		List<Magasin> listMag = new ArrayList<>();
+		try{
+			Statement stmt = Utility.initConnexion().createStatement();
+			String sql = "SELECT * FROM magasin";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				listMag.add(getElementById(rs.getInt(1)));
+			}
+		}catch(SQLException sqlE)
+		{
+			System.out.println("Erreur");
+			sqlE.printStackTrace();
+		}
+
+		return listMag;
+	}
+
 }

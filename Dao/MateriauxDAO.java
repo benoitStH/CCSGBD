@@ -1,11 +1,13 @@
 package Dao;
 
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import Model.Materiaux;
+import utility.Utility;
 
 public class MateriauxDAO extends SuperDAO{
 	
@@ -51,6 +53,26 @@ public class MateriauxDAO extends SuperDAO{
 		}
 		return materiaux; 
 			
+	}
+
+	public List<Materiaux> getMateriaux()
+	{
+		List<Materiaux> listMat = new ArrayList<>();
+		try{
+			Statement stmt = Utility.initConnexion().createStatement();
+			String sql = "SELECT * FROM commande";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				listMat.add(getElementById(rs.getInt(1)));
+			}
+		}catch(SQLException sqlE)
+		{
+			System.out.println("Erreur");
+			sqlE.printStackTrace();
+		}
+
+		return listMat;
 	}
 
 }

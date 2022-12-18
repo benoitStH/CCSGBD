@@ -68,4 +68,23 @@ public class ClientDAO extends SuperDAO {
 		return client;
 	}
 
+	public List<Client> getClients()
+	{
+		List<Client> listCli = new ArrayList<>();
+		try{
+			Statement stmt = Utility.initConnexion().createStatement();
+			String sql = "SELECT * FROM client";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				listCli.add(getElementById(rs.getInt(1)));
+			}
+		}catch(SQLException sqlE)
+		{
+
+		}
+
+		return listCli;
+	}
+
 }

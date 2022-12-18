@@ -63,5 +63,31 @@ public class CategorieDAO extends SuperDAO {
 		return categorie;
 	}
 
+	public List<Categorie> getCategories()
+	{
+		List<Categorie> listCat = new ArrayList<>();
+
+		try{
+			Statement stmt = Utility.initConnexion().createStatement();
+			ResultSet rs;
+			//Requete SQL pour récuperer la list des catégories
+			String sql = "SELECT * FROM categorie";
+			rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				listCat.add(getElementById(rs.getInt(1)));
+			}
+
+		}catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+			System.out.println("Erreur lors de a recupération de la list des catégories");
+		}
+
+
+
+		return listCat;
+	}
+
 	
 }

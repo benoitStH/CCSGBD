@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 
+import Model.Client;
 import Model.Commande;
 import Model.Materiaux;
 import utility.Utility;
@@ -67,6 +68,26 @@ public class CommandeDAO extends SuperDAO{
 
 
 		return commande;
+	}
+
+	public List<Commande> getCommandes()
+	{
+		List<Commande> listCom = new ArrayList<>();
+		try{
+			Statement stmt = Utility.initConnexion().createStatement();
+			String sql = "SELECT * FROM commande";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				listCom.add(getElementById(rs.getInt(1)));
+			}
+		}catch(SQLException sqlE)
+		{
+			System.out.println("Erreur");
+			sqlE.printStackTrace();
+		}
+
+		return listCom;
 	}
 
 }
