@@ -22,7 +22,7 @@ public class ControllerCategorie {
 		if(result == null)
 		{
 			System.out.println("Erreur : L'id "+value+" ne correspond à aucune catégorie");
-			return new Categorie(-1, "####");
+			return new Categorie(-1, "####", null);
 		}
 		
 		return result;
