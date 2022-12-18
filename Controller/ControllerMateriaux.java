@@ -8,7 +8,12 @@ import Model.Materiaux;
 
 public class ControllerMateriaux {
 
-	private MateriauxDAO dao = new MateriauxDAO();
+	private MateriauxDAO dao;
+	
+	public ControllerMateriaux()
+	{
+		dao = new MateriauxDAO();
+	}
 	
 	public List<Materiaux> getAllMateriaux()
 	{
