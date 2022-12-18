@@ -1,12 +1,20 @@
 package Controller;
 
+import java.util.List;
+
+import Dao.ClientDAO;
 import Model.Client;
 import Model.Magasin;
 
 public class ControllerClient {
 
-    private ClientDAO dao = new ClientDAO();
+    private ClientDAO dao;
   
+    public ControllerClient()
+    {
+        dao = new ClientDAO();
+    }
+    
     public List<Client> getAllClients
     {
           return dao.getClients(); 
