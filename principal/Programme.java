@@ -14,22 +14,24 @@ import Controller.ControllerMateriaux;
 
 import View.ViewMagasin;
 import View.ViewMateriaux;
+import View.ViewComposant;
+import View.ViewClient;
+import View.ViewCommande;
 
 public class Programme {
 
 	public static void main(String args[])
-	{
-		ControllerCategorie CategCtrl = new ControllerCategorie();
-		ControllerComposant ComposantCtrl = new ControllerComposant();
-		ControllerMateriaux MateriauxCtrl = new ControllerMateriaux();
-		/*
-		ControllerClient ClientCtrl = new ControllerClient(); 
-		ControllerCommande CommandCtrl = new ControllerCommande();
-		ControllerComposant ComposantCtrl = new ControllerComposant();
-		ControllerMagasin MagasinCtrl = new ControllerMagasin();
-		*/
+	{	
+		ViewMagasin magasinView = new ViewMagasin();
+		ViewMateriaux materiauxView = new ViewMateriaux();
+		ViewComposant composantView = new ViewComposant();
+		ViewClient clientView = new ViewClient();
+		ViewCommande commandeView = new ViewCommande();
 		
-		ViewMagasin MagasinView = new ViewMagasin();
+		int choix = -1;
+		Scanner scan = new Scanner(System.in);
+		Magasin magasin;
+		Composant composant;
 		
 		Connection c = null;
 		Properties user = new Properties();
@@ -60,9 +62,7 @@ public class Programme {
 			System.exit(1);
 		}
 		
-		int choix = -1;
-		Scanner scan = new Scanner(System.in);
-		
+		// PROGRAMME PRINCIPAL //
 		while(choix != 0)
 		{
 			System.out.println("1 - Afficher le contenu d'un magasin");
@@ -73,20 +73,38 @@ public class Programme {
 			System.out.print("Veuillez saisir une option : ");
 			
 			choix = scan.nextInt();
-			
+			 
 			if(choix == 1)
 			{
-				MagasinView.ShowMagasins();
-				MateriauxView.ShowMateriauxFrom(MagasinView.SelectMagasin().getMateriaux());
+				// choix d'un magasin parmi ceux existants
+				magasinView.ShowMagasins();
+				magasin = magasinView.SelectMagasin();
+				
+				// Affichage des materiaux du magasin selectionné
+				materiauxView.ShowMateriauxFrom(magasin.getMateriaux());
+				
+				// Recherche dans le contenu du magasin
+				magasinView.InspectMagasin(magasin);
 				
 			}
 			else if(choix == 2)
 			{
+				// choix d'un magasin parmi ceux existants
+				magasinView.ShowMagasins();
+				magasin = magasinView.SelectMagasin();
+				
+				// Ajout d'une commande
+				commandeView.AddCommande(magasin);
 				
 			}
 			else if(choix == 3)
 			{
+				// Choix d'un composant parmi ceux existant
+				composantView.ShowComposants();
+				composant = composantView.SelectComposant();
 				
+				// Affichage des matériaux ayant le composant seléctionné
+				materiauxView.ShowMateriauxFrom(comp.getMateriaux());
 			}
 		}
 		
@@ -99,10 +117,12 @@ public class Programme {
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
-			System.out.println("Erreur d'ouverture de connexion");
+			System.out.println("Erreur de fermeture de connexion");
 			System.exit(1);
 		}
 		
+		
+		System.out.println("Arrêt de l'application");
 		
 		
 	}
