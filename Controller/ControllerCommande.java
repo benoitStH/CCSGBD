@@ -1,6 +1,6 @@
 package Controller;
 
-import model.Commande;
+import Model.Commande;
 
 public class ControllerCommande {
 
