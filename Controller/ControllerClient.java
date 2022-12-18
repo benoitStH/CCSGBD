@@ -24,6 +24,11 @@ public class ControllerClient {
       
           return result;
     }
+    
+    public List<Client> getClientsOf(Magasin magasin)
+    {
+          return dao.getClientsOf(Magasin magasin);   
+    }
   
     public void AddClientToMagasin(Client client, Magasin magasin)
     {
