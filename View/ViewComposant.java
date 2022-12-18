@@ -1,19 +1,28 @@
 package View;
 
+import java.util.Scanner;
+import java.util.List;
+
 import Model.Composant;
 import ControllerComposant;
 
 public class ViewComposant
 {  
-    private Scanner scan = new Scanner(System.in);
-    private ControllerComposant Ctrl = new ControllerComposant();
+    private Scanner scan;
+    private ControllerComposant Ctrl;
+    
+    public ViewComposant()
+    {
+        scan = new Scanner(System.in);
+        Ctrl = new ControllerComposant();
+    }
   
     public Composant SelectComposant()
     {
           Composant comp;
           int id;
       
-          System.out.print("Veuillez saisir l'id du composant recherché : ");
+          System.out.prints("Veuillez saisir l'id du composant recherché : ");
           id = scan.nextInt();
       
           comp = Ctrl.getComposantById(id);
