@@ -1,6 +1,8 @@
 package View;
 
 import java.util.Scanner;
+import java.util.List;
+
 import Model.Categorie;
 import Controller.ControllerCategorie;
 
