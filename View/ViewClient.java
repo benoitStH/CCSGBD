@@ -74,7 +74,7 @@ public class ViewClient
         System.out.print("Prénom du client : ");
         prenom = scan.nextString();
         
-        client = new Client(IdMaxFrom(Ctrl.getAllClients()), nom, prenom, null, null);
+        client = new Client(IdMax()+1, nom, prenom, null, null);
         
         if(FincClientInMagasin(client, magasin))
         {
@@ -114,8 +114,9 @@ public class ViewClient
          
     }
       
-    private int IdMaxFrom(List<Client> clients)
+    private int IdMax()
     {
+            List<Client> clients = Ctrl.getAllClients();
             int taille = clients.size();
             int id = 0;
           
@@ -126,6 +127,8 @@ public class ViewClient
                        id = clients.get(i).getId();
                  }
             }
+          
+          return id;
     }
       
 }
