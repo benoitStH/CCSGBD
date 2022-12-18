@@ -1,0 +1,10 @@
+Categorie = (idCat INT, _nom VARCHAR(50));
+Composant = (idComp INT, nom VARCHAR(50));
+Materiaux = (idMat INT, nom VARCHAR(50), idSubstitue INT, #idCat);
+Magasin = (idMag INT, nom VARCHAR(50));
+Client = (idCli INT, nom VARCHAR(50), prenom VARCHAR(50), #idMag);
+Commande = (idCom INT, #idCli);
+Composition = (#idComp, #idMat, quantite INT);
+Stock = (#idMat, #idMag, quantite INT);
+Panier = (#idMat, #idCom, quantite INT);
+Seuil = (#idCat, #idCli, quantiteMax INT);
