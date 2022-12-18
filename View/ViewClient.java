@@ -76,7 +76,7 @@ public class ViewClient
         
         client = new Client(IdMax()+1, nom, prenom, null, null);
         
-        if(FincClientInMagasin(client, magasin))
+        if(FindClientInMagasin(client, magasin))
         {
              System.out.print("Il existe déjà un client avec le même nom et prénom")
              return null;     
