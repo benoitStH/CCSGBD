@@ -86,5 +86,10 @@ public class ClientDAO extends SuperDAO {
 
 		return listCli;
 	}
+	
+	public void AddClientToMagasin(Client client, Magasin magasin)
+	{
+		/// A DEFINIR ///	
+	}
 
 }
