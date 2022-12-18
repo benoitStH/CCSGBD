@@ -8,7 +8,12 @@ import Model.Materiaux;
 
 public class ControllerMagasin {
 	
-	private MagasinDAO dao = new MagasinDAO();
+	private MagasinDAO dao;
+	
+	public ControllerMagasin()
+	{
+		dao = new MagasinDAO();
+	}
 	
 	public List<Magasin> GetAllMagasin()
 	{
