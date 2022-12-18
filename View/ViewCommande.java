@@ -115,7 +115,7 @@ public class ViewCommande
             }while(mat.getId() != -1);
             
             commande = new Commande(IdMax()+1, quantite, materiaux);
-            Ctrl.AddCommande(commande, magasin, client);
+            Ctrl.AddCommande(commande, client);
       }
       
       private int IdMax()
