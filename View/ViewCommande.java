@@ -58,21 +58,61 @@ public class ViewCommande
   
       private void AddCommande(Magasin magasin, Client client)
       {
-          ViewMateriaux materiauxView = new ViewMateriaux();
-          Materiaux mat;
-          int choix;
+            ViewCategorie categorieView = new ViewCategorie();
+            ViewMateriaux materiauxView = new ViewMateriaux();
+            Categorie cat, c;
+            Materiaux mat;
+            List<Materiaux> materiaux;
+            List<Integer> quantite;
+            int choix;
+            int total = 0;
+            int max;
         
-          if(client == null)
-          {
+            if(client == null)
+            {
               System.out.println("Aucun client sélectionné");
               return;
-          }
+            }
         
-          materiauxView.ShowMateriauxFrom(magasin.getMateriaux());
-          mat = materiauxView.SelectMateriaux();
+            categorieView.ShowCategories();
+            cat = categorieView.SelectCategorie();
+            total = 0;
+            
+            for(int i = 0; i < client.getCategories().size(); i++)
+            {
+                  c = client.getCategories.get(i);
+                  if(cat.getId() == c.getId())
+                  {
+                        max = client.getSeuilMax().get(i);
+                        break;
+                  }
+            }
+            
+            do
+            {
+                  materiauxView.ShowMateriauxFrom(cat.getMateriaux());
+                  mat = materiauxView.SelectMateriaux();
         
-          System.out.print("Veuillez indiquer la quantité à commander : ");
-          choix = scan.nextInt();
-        
+                  if(mat.getId() == -1)
+                  {
+                        break;
+                  }
+                  
+                  System.out.print("Veuillez indiquer la quantité à commander : ");
+                  choix = scan.nextInt();
+                  if(total+choix > max)
+                  {
+                       System.out.println("La quantité choisie dépasse le seuil maximal autorisé");
+                  }
+                  else
+                  {
+                        total += choix;
+                        materiaux.add(mat);
+                        quantite.add(choix);
+                  }
+                  
+            }while(mat.getId() != -1);
+            
+            Ctrl.AddCommande(new Commande(IdMaxFrom(Ctrl.getAllCommandes())+1, quantite, materiaux));
       }
 }
