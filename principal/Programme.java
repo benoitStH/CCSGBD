@@ -12,6 +12,9 @@ import Controller.ControllerComposant;
 import Controller.ControllerMagasin;
 import Controller.ControllerMateriaux;
 
+import View.ViewMagasin;
+import View.ViewMateriaux;
+
 public class Programme {
 
 	public static void main(String args[])
@@ -25,6 +28,8 @@ public class Programme {
 		ControllerComposant ComposantCtrl = new ControllerComposant();
 		ControllerMagasin MagasinCtrl = new ControllerMagasin();
 		*/
+		
+		ViewMagasin MagasinView = new ViewMagasin();
 		
 		Connection c = null;
 		Properties user = new Properties();
@@ -55,10 +60,36 @@ public class Programme {
 			System.exit(1);
 		}
 		
+		int choix = -1;
+		Scanner scan = new Scanner(System.in);
 		
-		System.out.println(CategCtrl.GetCategoryById(0).getNom());
-		System.out.println(ComposantCtrl.GetComposantById(-1).getNom());
-		System.out.println(MateriauxCtrl.getMateriauxById(1).getNom());
+		while(choix != 0)
+		{
+			System.out.println("1 - Afficher le contenu d'un magasin");
+			System.out.println("2 - Créer une commande cliente");
+			System.out.println("3 - Rechercher des matériaux à partir d'un composant");
+			System.out.println("0 - Quitter l'application");
+			
+			System.out.print("Veuillez saisir une option : ");
+			
+			choix = scan.nextInt();
+			
+			if(choix == 1)
+			{
+				MagasinView.ShowMagasins();
+				MateriauxView.ShowMateriauxFrom(MagasinView.SelectMagasin().getMateriaux());
+				
+			}
+			else if(choix == 2)
+			{
+				
+			}
+			else if(choix == 3)
+			{
+				
+			}
+		}
+		
 		
 		
 		// Fermeture de connexion
