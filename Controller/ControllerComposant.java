@@ -3,7 +3,7 @@ package Controller;
 import java.util.List;
 
 import Dao.ComposantDAO;
-import model.Composant;
+import Model.Composant;
 
 public class ControllerComposant {
 
