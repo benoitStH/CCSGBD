@@ -3,8 +3,8 @@ package Controller;
 import java.util.List;
 
 import Dao.MagasinDAO;
-import model.Magasin;
-import model.Materiaux;
+import Model.Magasin;
+import Model.Materiaux;
 
 public class ControllerMagasin {
 	
