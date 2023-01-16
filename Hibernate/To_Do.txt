@@ -1,4 +1,10 @@
 Definir les fonctionnalités utilisateurs (ajout/modif/suppression de materiel/client/magasin)
+  Afficher contenu magasin
+  Créer une commande client (détails clients/seuils et materiaux/quantite)
+  Enregistrer une commande et l'afficher
+  Afficher la quantité dispo de materiaux (stock) dans un magasin
+  Rechercher les materiaux contenant un composant donné
+
 Concevoir les fonctions (paramètres et retour) des classes Views et Controller
 Concevoir le programme principal
 
