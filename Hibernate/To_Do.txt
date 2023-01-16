@@ -1,0 +1,6 @@
+Definir les fonctionnalités utilisateurs (ajout/modif/suppression de materiel/client/magasin)
+Concevoir les fonctions (paramètres et retour) des classes Views et Controller
+Concevoir le programme principal
+
+Repartir les classes à programmer
+
