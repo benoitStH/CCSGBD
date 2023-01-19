@@ -31,6 +31,11 @@ List<Client> clientele = null;
     public void setClientele(List<Client> clientele) {
         this.clientele = clientele;
     }
+    
+    public boolean equals(Magasin other)
+    {
+        return equals((Information)other);   
+    }
 
     @Override
     public String toString() {
