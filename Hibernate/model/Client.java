@@ -1,18 +1,29 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Client extends Information {
 
     private String prenom;
 
-    public Client(int id, String nom, String prenom) {
-        super(id, nom);
+    @OneToOne(cascade = CascadeType.ALL)
+    private Magasin magasin;
+
+    public Client()
+    {
+        super();
+    }
+
+    public Client(String prenom, Magasin store) {
         this.prenom = prenom;
+        this.magasin = store;
+    }
+
+    public Client(String nom, String prenom, Magasin store) {
+        super(nom);
+        this.prenom = prenom;
+        this.magasin = store;
     }
 
     public String getPrenom() {
@@ -21,5 +32,18 @@ public class Client extends Information {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public Magasin getStore() {
+        return magasin;
+    }
+
+    public void setStore(Magasin store) {
+        this.magasin = store;
+    }
+
+    @Override
+    public String toString() {
+        return "Client First Name: " + this.getPrenom() +" | Client Last Name: " + this.getNom() + " | Client Id (" + this.getId() + ") | Associated Store : " + this.getStore().getNom() +"\n";
     }
 }

@@ -17,8 +17,10 @@ public class Stock {
 
     private int quantite;
 
-    public Stock(int id, Materiaux materiaux, Magasin magasin, int quantite) {
-        this.id = id;
+    public Stock() {
+    }
+
+    public Stock(Materiaux materiaux, Magasin magasin, int quantite) {
         this.materiaux = materiaux;
         this.magasin = magasin;
         this.quantite = quantite;
@@ -54,5 +56,15 @@ public class Stock {
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
+    }
+
+    @Override
+    public String toString() {
+        return "Stock{" +
+                "Id= (" + id +
+                ") | Materiaux =" + materiaux +
+                " | Magasin = " + magasin.getNom() +
+                " | quantite = " + getQuantite() +
+                "}\n";
     }
 }

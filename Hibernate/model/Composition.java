@@ -17,6 +17,10 @@ public class Composition {
 
     private int quantite;
 
+    public Composition()
+    {
+
+    }
     public Composition(int id, Composant composant, Materiaux materiaux, int quantite) {
         this.id = id;
         this.composant = composant;

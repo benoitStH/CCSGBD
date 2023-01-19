@@ -2,7 +2,8 @@ package model;
 
 import javax.persistence.*;
 
-@Entity
+
+@MappedSuperclass
 public class Information {
 
     @Id
@@ -11,9 +12,12 @@ public class Information {
 
     private String nom;
 
-    public Information(int id, String nom) {
+    public Information()
+    {
+
+    }
+    public Information( String nom) {
         super();
-        this.id = id;
         this.nom = nom;
     }
 

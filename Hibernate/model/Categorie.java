@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Categorie extends Information {
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -14,14 +13,19 @@ public class Categorie extends Information {
         return listMat;
     }
 
-    public Categorie(int id, String nom, List<Materiaux> listMat) {
-        super(id, nom);
+    public Categorie(String nom, List<Materiaux> listMat) {
+        super(nom);
         this.listMat = listMat;
+    }
+
+    public Categorie()
+    {
+        super();
     }
 
     public void setListMat(List<Materiaux> listMat) {
         this.listMat = listMat;
-
-
     }
+
+
 }

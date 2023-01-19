@@ -6,29 +6,27 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Materiaux extends Information {
 
 
-    @Embedded
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Materiaux substitue;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Categorie categorie;
 
-    public Materiaux(int id, String nom, Materiaux substitue, Categorie categorie) {
-        super(id, nom);
+    public Materiaux(String nom, Materiaux substitue, Categorie categorie) {
+        super(nom);
         this.substitue = substitue;
         this.categorie = categorie;
     }
 
-    public Materiaux getSubstitue() {
-        return substitue;
+    public Materiaux()
+    {
+        super();
     }
 
-    public void setSubstitue(Materiaux substitue) {
-        this.substitue = substitue;
-    }
 
     public Categorie getCategorie() {
         return categorie;
@@ -36,5 +34,13 @@ public class Materiaux extends Information {
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
+    }
+
+    @Override
+    public String toString() {
+        return "Materiaux{" +
+                " | categorie = " + categorie.getNom() +
+                " | < substitue = " + substitue +
+                "> }";
     }
 }

@@ -15,9 +15,13 @@ public class Commande {
     @OneToOne(cascade = CascadeType.ALL)
     private  Client client;
 
-    public Commande(int id, Client client) {
-        this.id = id;
+    public Commande(Client client) {
         this.client = client;
+    }
+
+    public Commande()
+    {
+        super();
     }
 
     public int getId() {

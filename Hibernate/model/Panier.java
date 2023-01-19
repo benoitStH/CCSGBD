@@ -18,8 +18,11 @@ public class Panier {
 
     private int quantite;
 
-    public Panier(int id, Commande commande, Materiaux materiaux, int quantite) {
-        this.id = id;
+    public Panier()
+    {
+
+    }
+    public Panier(Commande commande, Materiaux materiaux, int quantite) {
         this.commande = commande;
         this.materiaux = materiaux;
         this.quantite = quantite;
