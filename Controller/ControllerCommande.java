@@ -1,43 +1,42 @@
-package Controller;
+package controller;
 
+import model.Commande;
+import model.Panier;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 
-import Dao.CommandeDAO;
-import Model.Commande;
-import Model.Magasin;
-import Model.Client;
+public class ControllerCommande extends ControllerEntity {
 
-public class ControllerCommande {
+    public ControllerCommande() {
+        super();
+    }
 
-    private CommandeDAO dao;
-    
-    public ControllerCommande()
-    {
-        dao = new CommandeDAO();
+    public ControllerCommande(EntityManager manager) {
+        super(manager);
     }
-  
-    public List<Commande> getAllCommandes()
+
+    public Commande CreateCommande(Commande commande, List<Panier> panierList)
     {
-          return dao.getCommandes(); 
+        manager.getTransaction().begin();
+        manager.persist(commande);
+        for(Panier i : panierList)
+        {
+            if(manager.contains(i))
+            {
+
+            }else
+            {
+                manager.persist(i);
+            }
+        }
+        manager.getTransaction().commit();
+
+        if (manager.contains(commande)) {
+            return commande;
+        } else {
+            return null;
+        }
     }
-  
-    public Commande getCommandeById(int value)
-    {
-          Commande result = dao.getElementById(value);
-      
-          if(result == null)
-          {
-                System.out.println("Erreur : Aucune commande ne possède l'id "+value); 
-                return new Commande(-1, null, null);
-          }
-        
-          return result;
-    }
-    
-    public void AddCommande(Commande commande, Client client)
-    {
-        dao.AddCommande(commande, client);
-    }
-  
-  
+
 }

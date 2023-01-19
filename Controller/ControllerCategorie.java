@@ -1,37 +1,39 @@
-package Controller;
+package controller;
 
 import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import java.util.ArrayList;
 
-import Dao.CategorieDAO;
-import Model.Categorie;
+import model.Categorie;
+import model.Materiaux;
 
-public class ControllerCategorie {
+public class ControllerCategorie extends ControllerEntity {
 
-	private CategorieDAO dao;
-	
-	public ControllerCategorie()
-	{
-		dao = new CategorieDAO();
-	}
-	
-	public List<Categorie> GetAllCategories()
-	{
-		return dao.getCategories();
-	}
-	
-	public Categorie GetCategoryById(int value)
-	{
-		Categorie result = dao.getElementById(value);
-		
-		if(result == null)
-		{
-			System.out.println("Erreur : L'id "+value+" ne correspond à aucune catégorie");
-			return new Categorie(-1, "####", null);
-		}
-		
-		return result;
-	}
-	
-	
+    public ControllerCategorie() {
+        super();
+    }
+
+    public ControllerCategorie(EntityManager manager) {
+        super(manager);
+    }
+
+    public Categorie CreateCategorie(String nom, List<Materiaux> listMat)
+    {
+        Categorie categorie = new Categorie(nom,listMat);
+
+        manager.getTransaction().begin();
+        manager.persist(categorie);
+        manager.getTransaction().commit();
+
+        if (manager.contains(categorie)) {
+            return categorie;
+        } else {
+            return null;
+        }
+    }
+
+
+
 }

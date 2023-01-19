@@ -1,36 +1,82 @@
-package Controller;
+package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import Dao.MateriauxDAO;
-import Model.Composant;
-import Model.Materiaux;
+import javax.persistence.ConstraintMode;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
-public class ControllerMateriaux {
+import model.Categorie;
+import model.Composant;
+import model.Magasin;
+import model.Materiaux;
 
-	private MateriauxDAO dao;
-	
-	public ControllerMateriaux()
-	{
-		dao = new MateriauxDAO();
-	}
-	
-	public List<Materiaux> getAllMateriaux()
-	{
-		return dao.getMateriaux();
-	}
-	
-	public Materiaux getMateriauxById(int value)
-	{
-		Materiaux result = dao.getElementById(value);
-		
-		if(result == null)
-		{
-			System.out.println("Erreur : L'id "+value+" ne correspond à aucun materiel");
-			return new Materiaux(-1, "####", null);
-		}
-		
-		return result;
-	}
-	
+public class ControllerMateriaux extends ControllerEntity {
+
+    public ControllerMateriaux() {
+        super();
+    }
+
+    public ControllerMateriaux(EntityManager manager) {
+        super(manager);
+    }
+
+    public List<Materiaux> GetMaterialByComponant(Composant component)
+    {
+       return null;
+    }
+
+    public List<Materiaux> GetMaterialByName(String nom)
+    {
+        return null;
+    }
+
+    public Materiaux CreateMateriaux(Materiaux materiaux) {
+        manager.getTransaction().begin();
+        manager.persist(materiaux);
+        manager.getTransaction().commit();
+
+        if (manager.contains(materiaux)) {
+            return materiaux;
+        } else {
+            return null;
+        }
+    }
+
+    /*public List<Materiaux> GetMateriauxWithComposant(Composant composant)
+    {
+        List<Materiaux> materiauxList = new ArrayList();
+        Query query = manager.createQuery("FROM materiaux LEFT OUTER JOIN composition on materiaux.id = composition.materiaux_id\n" +
+                "WHERE composant_id = "+ composant.getId() );
+
+        materiauxList = query.getResultList();
+
+
+        return materiauxList;
+    }*/
+
+    public Materiaux CreateMateriaux(String nom, Materiaux substitue, Categorie categorie)
+    {
+
+        Materiaux materiaux = new Materiaux();
+        materiaux.setCategorie(categorie);
+        materiaux.setNom(nom);
+
+
+        manager.getTransaction().begin();
+        manager.persist(materiaux);
+        manager.getTransaction().commit();
+
+        if (manager.contains(materiaux)) {
+            return materiaux;
+        } else {
+            return null;
+        }
+    }
+
+
+
+
+
 }

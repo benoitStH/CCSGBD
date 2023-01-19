@@ -1,46 +1,37 @@
-package Controller;
+package controller;
 
-import java.util.List;
+import javax.persistence.EntityManager;
 
-import Dao.ClientDAO;
-import Model.Client;
-import Model.Magasin;
+import model.Client;
 
-public class ControllerClient {
+public class ControllerClient extends ControllerEntity {
 
-    private ClientDAO dao;
-  
-    public ControllerClient()
-    {
-        dao = new ClientDAO();
+    public ControllerClient() {
+        super();
     }
-    
-    public List<Client> getAllClients
-    {
-          return dao.getClients(); 
+
+    public ControllerClient(EntityManager manager) {
+        super(manager);
     }
-  
-    public Client getClientById(int value)
+
+    public Client CreateClient(Client client)
     {
-          Client result = dao.getElementById(value);
-      
-          if(result == null)
-          {
-              System.out.println("Erreur : Aucun client ne possède l'id "+value);
-              return new Client(-1, "###", "###", null, null);
-          }
-      
-          return result;
-    }
-    
-    public List<Client> getClientsOf(Magasin magasin)
-    {
-          return dao.getClientsOf(Magasin magasin);   
-    }
-  
-    public void AddClientToMagasin(Client client, Magasin magasin)
-    {
-        dao.AddClientToMagasin(client, magasin);
-    }
-  
+
+        if (manager.contains(client.getStore()))
+        {
+
+        }
+            client.getStore();
+            manager.getTransaction().begin();
+            manager.persist(client);
+            manager.getTransaction().commit();
+
+            if (manager.contains(client)) {
+                return client;
+            } else {
+                return null;
+            }
+        }
+
+
 }
