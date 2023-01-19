@@ -24,4 +24,9 @@ public class Composant extends Information {
     public void setMateriaux(List<Materiaux> materiaux) {
         this.materiaux = materiaux;
     }
+    
+    public boolean equals(Composant other)
+    {
+        return equals((Information)other);   
+    }
 }
