@@ -26,6 +26,11 @@ public class Categorie extends Information {
     public void setListMat(List<Materiaux> listMat) {
         this.listMat = listMat;
     }
+    
+    public boolean equals(Categorie other)
+    {
+        return equals((Information)other);   
+    }
 
 
 }
