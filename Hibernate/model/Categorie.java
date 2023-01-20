@@ -27,9 +27,5 @@ public class Categorie extends Information {
         this.listMat = listMat;
     }
 
-    public boolean equals(Categorie other)
-    {
-        return equals((Information)other);   
-    }
 
 }

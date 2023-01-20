@@ -2,6 +2,8 @@ package model;
 
 
 
+import org.jetbrains.annotations.Nullable;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +14,8 @@ public class Magasin extends Information {
 
 
 @OneToMany(cascade = CascadeType.ALL)
-List<Client> clientele = null;
+@Column(nullable = true)
+List<Client> clientele;
 
     public Magasin(String nom, List<Client> clientele) {
         super(nom);
@@ -30,11 +33,6 @@ List<Client> clientele = null;
 
     public void setClientele(List<Client> clientele) {
         this.clientele = clientele;
-    }
-    
-    public boolean equals(Magasin other)
-    {
-        return equals((Information)other);   
     }
 
     @Override

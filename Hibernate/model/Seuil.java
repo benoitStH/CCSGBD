@@ -13,14 +13,13 @@ public class Seuil {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Client client;
-    
     private int quantiteMax;
-    
-    
     public Seuil()
     {
 
     }
+
+
 
     public Seuil(int id, Categorie categorie, Client client, int quantiteMax) {
         this.id = id;

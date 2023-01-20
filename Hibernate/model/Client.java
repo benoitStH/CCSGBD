@@ -41,11 +41,6 @@ public class Client extends Information {
     public void setStore(Magasin store) {
         this.magasin = store;
     }
-    
-    public boolean equals(Client other)
-    {
-        return ((prenom.equals(other.prenom)) && equals((Information)other));
-    }
 
     @Override
     public String toString() {

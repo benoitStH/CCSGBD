@@ -16,8 +16,8 @@ public class Information {
     {
 
     }
-    
-    public Information(String nom) {
+    public Information( String nom) {
+        super();
         this.nom = nom;
     }
 
@@ -35,11 +35,6 @@ public class Information {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-    
-    public boolean equals(Information other)
-    {
-        return (nom.equals(other.nom));   
     }
 
 

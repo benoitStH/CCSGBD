@@ -13,7 +13,7 @@ public class Materiaux extends Information {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Materiaux substitue;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Categorie categorie;
 
     public Materiaux(String nom, Materiaux substitue, Categorie categorie) {
@@ -34,11 +34,6 @@ public class Materiaux extends Information {
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
-    }
-    
-    public boolean equals(Materiaux other)
-    {
-        return equals((Information)other);   
     }
 
     @Override
