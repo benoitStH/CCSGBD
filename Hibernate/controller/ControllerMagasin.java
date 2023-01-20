@@ -7,11 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import model.*;
-import org.jetbrains.annotations.NotNull;
 
 public class ControllerMagasin extends ControllerEntity {
 
-
+	private Magasin magasin;
 
     public ControllerMagasin() {
         super();
@@ -20,8 +19,18 @@ public class ControllerMagasin extends ControllerEntity {
     public ControllerMagasin(EntityManager manager) {
         super(manager);
     }
+    
+    
 
-    public List<Magasin> GetAll()
+    public Magasin getMagasin() {
+		return magasin;
+	}
+
+	public void setMagasin(Magasin magasin) {
+		this.magasin = magasin;
+	}
+
+	public List<Magasin> GetAll()
     {
         Query query = manager.createQuery("from Magasin");
         List<Magasin> list = query.getResultList();
@@ -44,6 +53,33 @@ public class ControllerMagasin extends ControllerEntity {
 
         return list;
     }
+    
+    public List<Commande> GetCommandeMagasin(Magasin store)
+    {
+    	List<Commande> commandes = new ArrayList<Commande>();
+    	List<Commande> commandesMagasin = new ArrayList<Commande>();
+    	List<Client> clients = GetClientMagasin(store);
+    	Query query;
+    	int taille1, taille2;
+    	
+    	taille1 = clients.size();
+    	for(int i = 0; i < taille1; i++)
+    	{
+    		// Récupération des commandes de chaque client i
+    		query = manager.createQuery("From Commande where client_id = "+clients.get(i).getId());
+    		commandes = query.getResultList();
+    		
+    		taille2 = commandes.size();
+    		for(int j = 0; j < taille2; j++)
+    		{
+    			// Ajout dans la liste de commandes totales du magasin
+    			commandesMagasin.add(commandes.get(j));
+    		}
+    	}
+    	
+    	return commandesMagasin;
+    	
+    }
 
     public Seuil SetSeuilForClient(Magasin store, Client client, int quantiteMax ,String categorieName)
     {
@@ -51,7 +87,8 @@ public class ControllerMagasin extends ControllerEntity {
         Seuil seuil = new Seuil();
         seuil.setClient(client);
         seuil.setQuantiteMax(quantiteMax);
-        Categorie categorie = new Categorie(categorieName, null);
+        Categorie categorie = new Categorie();
+        categorie.setNom(categorieName);
        /* if(manager.find(Categorie.class,categorie.getId()) == null)
         {
             return null;
@@ -85,7 +122,10 @@ public class ControllerMagasin extends ControllerEntity {
      */
     public Magasin CreateMagasin(String name)
     {
-        Magasin magasin = new Magasin(name,null);
+        Magasin magasin = new Magasin();
+        magasin.setNom(name);
+        magasin.setClientele(null);
+        
         manager.getTransaction().begin();
         manager.persist(magasin);
         manager.getTransaction().commit();

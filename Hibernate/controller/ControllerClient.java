@@ -20,20 +20,45 @@ public class ControllerClient extends ControllerEntity {
 
     public Client CreateClient(Client client, Magasin magasin)
     {
-            Magasin store = manager.find(Magasin.class,magasin.getId());
-            if(store == null)
-            {
-                return null;
-            }
-            client.setStore(store);
-            manager.getTransaction().begin();
-            manager.merge(client);
-            manager.getTransaction().commit();
-            if (manager.contains(client)) {
-                return client;
-            } else {
-                return null;
-            }
+    	boolean exist = false;
+    	int taille;
+    	List<Client> clients = GetClientFromStore(magasin);
+    	
+    	System.out.println("Clients : "+clients.size());
+    	
+    	taille = clients.size();
+    	for(int i = 0; i < taille && exist == false; i++)
+    	{
+    		exist = clients.get(i).equals(client);
+    	}
+    	
+    	if(exist)
+    	{
+    		return null;
+    	}
+    	
+    	
+    	client.setStore(magasin);
+    	
+        manager.getTransaction().begin();
+        manager.persist(client);
+        manager.getTransaction().commit();
+        if (manager.contains(client)) {
+            return client;
+        } else {
+            return null;
+        }
+    }
+    
+    public List<Client> GetClientFromStore(Magasin store)
+    {
+    	List<Client> clients;
+    	
+    	Query query = manager.createQuery("From Client where magasin_id ="+store.getId());
+    	
+    	clients = query.getResultList();
+    	
+    	return clients;
     }
 
     public Client DeleteClient(Client client)

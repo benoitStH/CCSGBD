@@ -65,6 +65,7 @@ public abstract class EntityView implements InterfaceView {
 		}
 		else
 		{
+			scan.next();
 			return null;
 		}
 	}

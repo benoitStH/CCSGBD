@@ -22,10 +22,7 @@ public class ControllerCommande extends ControllerEntity {
         manager.persist(commande);
         for(Panier i : panierList)
         {
-            if(manager.contains(i))
-            {
-
-            }else
+            if(manager.contains(i) == false)
             {
                 manager.persist(i);
             }

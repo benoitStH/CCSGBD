@@ -2,6 +2,8 @@ package view;
 
 import controller.ControllerCategorie;
 import controller.ControllerEntity;
+import model.Categorie;
+import model.Magasin;
 
 public class CategorieView extends EntityView {
 
@@ -17,4 +19,5 @@ public class CategorieView extends EntityView {
 	{
 		Ctrl = (ControllerCategorie) controller;
 	}
+	
 }

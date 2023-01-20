@@ -73,24 +73,7 @@ public class Programme {
 				
 				case 2:
 					// Recherche d'un materiel
-					
-				break;
-				
-				case 3:
-					// 
-				break;
-				
-				case 4:
-					// 
-				break;
-				
-				case 5:
-					// 
-				break;
-				
-				case 6:
-					// 
-					
+					materiauxV.SearchMaterial();
 				break;
 				
 				case 0:
@@ -99,6 +82,7 @@ public class Programme {
 				break;
 				
 				default:
+					System.out.println("It must be a number between 0 and 2");
 					break;
 			}
 			
@@ -127,5 +111,9 @@ public class Programme {
 		composantV = new ComposantView(composantCtrl);
 		magasinV = new MagasinView(magasinCtrl);
 		materiauxV = new MateriauxView(materiauxCtrl);
+		
+		materiauxV.setComposantView(composantV);
+		magasinV.setClientView(clientV);
+		magasinV.setCommandeView(materiauxV);
 	}
 }

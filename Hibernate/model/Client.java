@@ -44,7 +44,7 @@ public class Client extends Information {
     
     public boolean equals(Client other)
     {
-        return ((prenom == other.prenom) && equals((Information)other));
+        return ((prenom.equals(other.prenom)) && equals((Information)other));
     }
 
     @Override
