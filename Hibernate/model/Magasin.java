@@ -35,6 +35,12 @@ List<Client> clientele;
         this.clientele = clientele;
     }
 
+    public boolean equals(Magasin other)
+    {
+        return equals((Information)other);   
+    }
+    
+    
     @Override
     public String toString() {
         return (this.getNom()+ "[ Store ID : " + this.getId() +"] \n Clients : " + Arrays.toString(clientele.toArray()))  ;
