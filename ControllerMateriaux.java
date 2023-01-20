@@ -19,14 +19,31 @@ public class ControllerMateriaux extends ControllerEntity {
         super(manager);
     }
 
-    public List<Materiaux> GetMaterialByComponant(Composant component)
+    public List<Materiaux> GetMaterialByComponant(Composant composant)
     {
-       return null;
+       List<Materiaux> materiauxList = new ArrayList();
+        Query query = manager.createQuery("FROM materiaux LEFT OUTER JOIN composition on materiaux.id = composition.materiaux_id\n" +
+                "WHERE composant_id = "+ composant.getId() );
+
+        materiauxList = query.getResultList();
+
+
+        return materiauxList;
     }
 
-    public List<Materiaux> GetMaterialByName(String nom)
+    public List<Materiaux> GetMaterialByName(String name)
     {
-        return null;
+        Query query = manager.createQuery("from Materiaux where nom = '"+ name + "'");
+        List<Materiaux> recherche = query.getResultList();
+
+        if(recherche.isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            return recherche;
+        }
     }
 
     public Materiaux CreateMateriaux(Materiaux materiaux) {
@@ -53,19 +70,7 @@ public class ControllerMateriaux extends ControllerEntity {
             return null;
         }
     }
-
-    public List<Materiaux> GetMateriauxWithComposant(Composant composant)
-    {
-        List<Materiaux> materiauxList = new ArrayList();
-        Query query = manager.createQuery("FROM materiaux LEFT OUTER JOIN composition on materiaux.id = composition.materiaux_id\n" +
-                "WHERE composant_id = "+ composant.getId() );
-
-        materiauxList = query.getResultList();
-
-
-        return materiauxList;
-    }
-
+    
     public Materiaux CreateMateriaux(String nom, Materiaux substitue, Categorie categorie)
     {
 
@@ -109,21 +114,6 @@ public class ControllerMateriaux extends ControllerEntity {
             return material;
         } else {
             return null;
-        }
-    }
-
-    public Materiaux FindMateriauxByName(String name)
-    {
-        Query query = manager.createQuery("from Materiaux where nom = '"+ name + "'");
-        List<Materiaux> recherche = query.getResultList();
-
-        if(recherche.isEmpty())
-        {
-            return null;
-        }
-        else
-        {
-            return recherche.get(0);
         }
     }
 
