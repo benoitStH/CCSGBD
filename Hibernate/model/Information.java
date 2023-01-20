@@ -36,6 +36,11 @@ public class Information {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+    public boolean equals(Information other)
+    {
+        return nom.equals(other.nom);   
+    }
 
 
     public String toString() {
