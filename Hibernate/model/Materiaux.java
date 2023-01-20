@@ -35,6 +35,11 @@ public class Materiaux extends Information {
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
+    
+    public boolean equals(Materiaux other)
+    {
+        return equals((Information)other);   
+    }
 
     @Override
     public String toString() {
