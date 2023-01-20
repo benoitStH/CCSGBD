@@ -11,14 +11,26 @@ import org.jetbrains.annotations.NotNull;
 
 public class ControllerMagasin extends ControllerEntity {
 
-
+    private Magasin magasin;
 
     public ControllerMagasin() {
         super();
+        magasin = null;
     }
 
     public ControllerMagasin(EntityManager manager) {
         super(manager);
+        magasin = null
+    }
+    
+    public void setMagasin(Magasin store)
+    {
+        magasin = store;   
+    }
+    
+    public void getMagasin()
+    {
+        return magasin;   
     }
 
     public List<Magasin> GetAll()
