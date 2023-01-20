@@ -7,10 +7,7 @@ import javax.persistence.ConstraintMode;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import model.Categorie;
-import model.Composant;
-import model.Magasin;
-import model.Materiaux;
+import model.*;
 
 public class ControllerMateriaux extends ControllerEntity {
 
@@ -43,8 +40,8 @@ public class ControllerMateriaux extends ControllerEntity {
             return null;
         }
     }
-
-    /*public List<Materiaux> GetMateriauxWithComposant(Composant composant)
+/*
+    public List<Materiaux> GetMateriauxWithComposant(Composant composant)
     {
         List<Materiaux> materiauxList = new ArrayList();
         Query query = manager.createQuery("FROM materiaux LEFT OUTER JOIN composition on materiaux.id = composition.materiaux_id\n" +
@@ -76,7 +73,22 @@ public class ControllerMateriaux extends ControllerEntity {
     }
 
 
+    public Materiaux DeleteMateriaux(Materiaux materiaux)
+    {
+        Materiaux material = manager.find(Materiaux.class, materiaux.getId());
+        if(material == null)
+        {
+            return null;
+        }
+        manager.getTransaction().begin();
+        manager.remove(material);
+        manager.getTransaction().commit();
 
-
+        if (manager.contains(material)) {
+            return material;
+        } else {
+            return null;
+        }
+    }
 
 }

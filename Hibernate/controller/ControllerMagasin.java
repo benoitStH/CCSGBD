@@ -46,21 +46,6 @@ public class ControllerMagasin extends ControllerEntity {
     }
 
 
-
-    /*public List<Commande> GetCommandeMagasin(Magasin store)
-    {
-        Query query = manager.createQuery("SELECT DISTINCT * FROM commande INNER JOIN client on commande.client_id = client.id\n" +
-                "WHERE client.magasin_id = 1; " + store.getId());
-        List<Commande> list = query.getResultList();
-
-        return list;
-    }*/
-
-    /**
-     * Bon
-     * @param name
-     * @return
-     */
     public Magasin CreateMagasin(String name)
     {
         Query query = manager.createQuery("from Magasin where nom = '" + name +"'");
