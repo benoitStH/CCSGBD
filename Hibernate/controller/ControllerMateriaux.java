@@ -3,12 +3,13 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ConstraintMode;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import model.Categorie;
 import model.Composant;
-import model.Composition;
+import model.Magasin;
 import model.Materiaux;
 
 public class ControllerMateriaux extends ControllerEntity {
@@ -21,37 +22,14 @@ public class ControllerMateriaux extends ControllerEntity {
         super(manager);
     }
 
-    public List<Materiaux> GetMaterialByComponent(Composant component)
+    public List<Materiaux> GetMaterialByComponant(Composant component)
     {
-    	int taille;
-    	List<Composition> composition = new ArrayList<Composition>();
-    	List<Materiaux> materiauxList = new ArrayList<Materiaux>();
-        Query query = manager.createQuery("FROM Composition where composant_id = "+component.getId());
-
-        composition = query.getResultList();
-        taille = composition.size();        
-        
-        // Récupération du materiel associé à la composition i
-        for(int i = 0; i < taille; i++)
-        {
-        	// On ne récupère pas les doublons
-        	if(materiauxList.contains(composition.get(i).getMateriaux()) == false)
-        	{
-            	materiauxList.add(composition.get(i).getMateriaux());
-        	}
-        }
-        
-        return materiauxList;
+       return null;
     }
 
     public List<Materiaux> GetMaterialByName(String nom)
     {
-    	List<Materiaux> materiauxList = new ArrayList<Materiaux>();
-        Query query = manager.createQuery("FROM Materiaux where nom like '%"+nom+"%'");
-
-        materiauxList = query.getResultList();
-        
-        return materiauxList;
+        return null;
     }
 
     public Materiaux CreateMateriaux(Materiaux materiaux) {
@@ -65,6 +43,18 @@ public class ControllerMateriaux extends ControllerEntity {
             return null;
         }
     }
+
+    /*public List<Materiaux> GetMateriauxWithComposant(Composant composant)
+    {
+        List<Materiaux> materiauxList = new ArrayList();
+        Query query = manager.createQuery("FROM materiaux LEFT OUTER JOIN composition on materiaux.id = composition.materiaux_id\n" +
+                "WHERE composant_id = "+ composant.getId() );
+
+        materiauxList = query.getResultList();
+
+
+        return materiauxList;
+    }*/
 
     public Materiaux CreateMateriaux(String nom, Materiaux substitue, Categorie categorie)
     {

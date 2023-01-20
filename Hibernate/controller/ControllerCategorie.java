@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import java.util.ArrayList;
+
 import model.Categorie;
-import model.Magasin;
+import model.Materiaux;
 
 public class ControllerCategorie extends ControllerEntity {
 
@@ -17,28 +19,30 @@ public class ControllerCategorie extends ControllerEntity {
     public ControllerCategorie(EntityManager manager) {
         super(manager);
     }
-    
-    public List<Categorie> GetCategorieFromStore(Magasin store)
+
+    public Categorie FindCategorieByName(String name)
     {
-    	List<Categorie> categories;
-    	Query query = manager.createQuery("From categorie");
-    	
-    	categories = query.getResultList();
-    	
-    	return categories;
-    	
+        Query query = manager.createQuery("from Categorie where nom = '"+ name + "'");
+        List<Categorie> recherche = query.getResultList();
+
+        if(recherche == null)
+        {
+            return null;
+        }
+        else
+        {
+            return recherche.get(0);
+        }
     }
 
     public Categorie CreateCategorie(String nom)
     {
-        Categorie categorie = new Categorie();
-        categorie.setNom(nom);
+        Categorie categorie = new Categorie(nom,null);
 
         manager.getTransaction().begin();
         manager.persist(categorie);
         manager.getTransaction().commit();
 
-        // Retourne l'élément enregistré sinon retourne null en cas d'erreur
         if (manager.contains(categorie)) {
             return categorie;
         } else {
@@ -46,7 +50,7 @@ public class ControllerCategorie extends ControllerEntity {
         }
     }
 
-    
+
 
 
 

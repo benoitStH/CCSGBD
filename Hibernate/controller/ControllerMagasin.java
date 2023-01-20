@@ -7,10 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import model.*;
+import org.jetbrains.annotations.NotNull;
 
 public class ControllerMagasin extends ControllerEntity {
 
-	private Magasin magasin;
+
 
     public ControllerMagasin() {
         super();
@@ -19,18 +20,8 @@ public class ControllerMagasin extends ControllerEntity {
     public ControllerMagasin(EntityManager manager) {
         super(manager);
     }
-    
-    
 
-    public Magasin getMagasin() {
-		return magasin;
-	}
-
-	public void setMagasin(Magasin magasin) {
-		this.magasin = magasin;
-	}
-
-	public List<Magasin> GetAll()
+    public List<Magasin> GetAll()
     {
         Query query = manager.createQuery("from Magasin");
         List<Magasin> list = query.getResultList();
@@ -53,58 +44,8 @@ public class ControllerMagasin extends ControllerEntity {
 
         return list;
     }
-    
-    public List<Commande> GetCommandeMagasin(Magasin store)
-    {
-    	List<Commande> commandes = new ArrayList<Commande>();
-    	List<Commande> commandesMagasin = new ArrayList<Commande>();
-    	List<Client> clients = GetClientMagasin(store);
-    	Query query;
-    	int taille1, taille2;
-    	
-    	taille1 = clients.size();
-    	for(int i = 0; i < taille1; i++)
-    	{
-    		// Récupération des commandes de chaque client i
-    		query = manager.createQuery("From Commande where client_id = "+clients.get(i).getId());
-    		commandes = query.getResultList();
-    		
-    		taille2 = commandes.size();
-    		for(int j = 0; j < taille2; j++)
-    		{
-    			// Ajout dans la liste de commandes totales du magasin
-    			commandesMagasin.add(commandes.get(j));
-    		}
-    	}
-    	
-    	return commandesMagasin;
-    	
-    }
 
-    public Seuil SetSeuilForClient(Magasin store, Client client, int quantiteMax ,String categorieName)
-    {
 
-        Seuil seuil = new Seuil();
-        seuil.setClient(client);
-        seuil.setQuantiteMax(quantiteMax);
-        Categorie categorie = new Categorie();
-        categorie.setNom(categorieName);
-       /* if(manager.find(Categorie.class,categorie.getId()) == null)
-        {
-            return null;
-        }*/
-        seuil.setCategorie(categorie);
-
-        manager.getTransaction().begin();
-        manager.persist(seuil);
-        manager.getTransaction().commit();
-        if (manager.contains(seuil)) {
-            return seuil;
-        } else {
-            return null;
-        }
-
-    }
 
     /*public List<Commande> GetCommandeMagasin(Magasin store)
     {
@@ -122,10 +63,12 @@ public class ControllerMagasin extends ControllerEntity {
      */
     public Magasin CreateMagasin(String name)
     {
-        Magasin magasin = new Magasin();
-        magasin.setNom(name);
-        magasin.setClientele(null);
-        
+        Query query = manager.createQuery("from Magasin where nom = '" + name +"'");
+        if(query.getResultList().isEmpty() == false)
+        {
+            return null;
+        }
+        Magasin magasin = new Magasin(name,null);
         manager.getTransaction().begin();
         manager.persist(magasin);
         manager.getTransaction().commit();
@@ -166,13 +109,26 @@ public class ControllerMagasin extends ControllerEntity {
 
     public Stock AddStock(Stock stock)
     {
+        Stock inventaire = new Stock();
+        Magasin store = manager.find(Magasin.class,stock.getMagasin().getId());
+        Materiaux materiaux = manager.find(Materiaux.class,stock.getMateriaux().getId());
+
+        if(store == null || materiaux ==null)
+        {
+            return null;
+        }
+
+        inventaire.setMagasin(store);
+        inventaire.setMateriaux(materiaux);
+        inventaire.setQuantite(stock.getQuantite());
+
         manager.getTransaction().begin();
-        manager.persist(stock);
+        manager.persist(inventaire);
         manager.getTransaction().commit();
 
-        if(manager.contains(stock))
+        if(manager.contains(inventaire))
         {
-            return stock;
+            return inventaire;
         }else
         {
             return null;

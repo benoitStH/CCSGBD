@@ -3,6 +3,7 @@ package controller;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import model.Categorie;
 import model.Client;
 import model.Magasin;
 import model.Seuil;
@@ -20,45 +21,20 @@ public class ControllerClient extends ControllerEntity {
 
     public Client CreateClient(Client client, Magasin magasin)
     {
-    	boolean exist = false;
-    	int taille;
-    	List<Client> clients = GetClientFromStore(magasin);
-    	
-    	System.out.println("Clients : "+clients.size());
-    	
-    	taille = clients.size();
-    	for(int i = 0; i < taille && exist == false; i++)
-    	{
-    		exist = clients.get(i).equals(client);
-    	}
-    	
-    	if(exist)
-    	{
-    		return null;
-    	}
-    	
-    	
-    	client.setStore(magasin);
-    	
-        manager.getTransaction().begin();
-        manager.persist(client);
-        manager.getTransaction().commit();
-        if (manager.contains(client)) {
-            return client;
-        } else {
-            return null;
-        }
-    }
-    
-    public List<Client> GetClientFromStore(Magasin store)
-    {
-    	List<Client> clients;
-    	
-    	Query query = manager.createQuery("From Client where magasin_id ="+store.getId());
-    	
-    	clients = query.getResultList();
-    	
-    	return clients;
+            Magasin store = manager.find(Magasin.class,magasin.getId());
+            if(store == null)
+            {
+                return null;
+            }
+            client.setStore(store);
+            manager.getTransaction().begin();
+            manager.merge(client);
+            manager.getTransaction().commit();
+            if (manager.contains(client)) {
+                return client;
+            } else {
+                return null;
+            }
     }
 
     public Client DeleteClient(Client client)
@@ -106,6 +82,32 @@ public class ControllerClient extends ControllerEntity {
         } else {
             return null;
         }
+    }
+
+    public Seuil SetSeuilForClient(Client client, int quantiteMax , Categorie categorie)
+    {
+
+        Client acheteur = manager.find(Client.class,client.getId());
+        Categorie groupe = manager.find(Categorie.class,categorie.getId());
+        if(acheteur == null || groupe == null)
+        {
+            return null;
+        }
+
+        Seuil seuil = new Seuil();
+        seuil.setClient(acheteur);
+        seuil.setQuantiteMax(quantiteMax);
+        seuil.setCategorie(groupe);
+
+        manager.getTransaction().begin();
+        manager.persist(seuil);
+        manager.getTransaction().commit();
+        if (manager.contains(seuil)) {
+            return seuil;
+        } else {
+            return null;
+        }
+
     }
 
 
