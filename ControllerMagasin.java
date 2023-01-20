@@ -56,6 +56,33 @@ public class ControllerMagasin extends ControllerEntity {
 
         return list;
     }
+    
+    public List<Commande> GetCommandeMagasin(Magasin store)
+    {
+    	List<Commande> commandes = new ArrayList<Commande>();
+    	List<Commande> commandesMagasin = new ArrayList<Commande>();
+    	List<Client> clients = GetClientMagasin(store);
+    	Query query;
+    	int taille1, taille2;
+    	
+    	taille1 = clients.size();
+    	for(int i = 0; i < taille1; i++)
+    	{
+    		// Récupération des commandes de chaque client i
+    		query = manager.createQuery("From Commande where client_id = "+clients.get(i).getId());
+    		commandes = query.getResultList();
+    		
+    		taille2 = commandes.size();
+    		for(int j = 0; j < taille2; j++)
+    		{
+    			// Ajout dans la liste de commandes totales du magasin
+    			commandesMagasin.add(commandes.get(j));
+    		}
+    	}
+    	
+    	return commandesMagasin;
+    	
+    }
 
 
     public Magasin CreateMagasin(String name)
